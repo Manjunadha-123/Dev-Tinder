@@ -12,3 +12,5 @@
 // if first had response and also include next it run perfect but it can not go to the next route and give error.
 // if we can not give route, then app will be crash.
 // rapping Route Handlers in Array is works properly.
+
+// in the use of next functions are middeleares and where the one is give the response is the request handlers.

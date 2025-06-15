@@ -2,23 +2,16 @@ const express = require('express');
 
 const app = express();
 
+const {Auth} = require('./middlewares/auth.js');
 
+app.use('/Admin',Auth);
 
-
-app.get('/user',(req,res,next)=>{
-    res.send('user data get suceessusfully');
-    // next();
-},(req,res)=>{
-    res.send('user data2 get suceessusfully');
+app.get('/Admin/getAllData',(req,res)=>{
+    res.send("All data retrieved successfully");
 })
 
-
-app.post('/user',(req,res)=>{
-    res.send('user data post suceessusfully');
-})
-
-app.use('/user',(req,res)=>{
-    res.send('user data middleware suceessusfully');
+app.get('/Admin/DeleteData',(req,res)=>{
+    res.send("All data Deleted successfully");
 })
 
 
