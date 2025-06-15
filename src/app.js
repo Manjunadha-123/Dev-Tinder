@@ -1,20 +1,26 @@
-const express = require('express');
+const express = require("express");
 
 const app = express();
 
-const {Auth} = require('./middlewares/auth.js');
+// const {Auth} = require('./middlewares/auth.js');
 
-app.use('/Admin',Auth);
+// app.use('/Admin',Auth);
 
-app.get('/Admin/getAllData',(req,res)=>{
-    res.send("All data retrieved successfully");
-})
+app.get("/user", (req, res) => {
+  try {
+    throw new Error("This is a test error"); // This will be caught by the error handler
+    res.send("Hello, World!");
+  } catch (error) {
+    res.status(500).send("An error occurred: " + error.message);
+  }
+});
 
-app.get('/Admin/DeleteData',(req,res)=>{
-    res.send("All data Deleted successfully");
-})
+app.use((err, req, res, next) => {
+    if(err){
+        res.send("Something went wrong: " + err.message);
+    }
+});
 
-
-
-
-app.listen(3000, ()=>{console.log('Server is running on port 3000');});
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
+});
