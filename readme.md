@@ -1,6 +1,6 @@
 -- npm init
 -- npm i express
--- npm i -g nodemon  -> it uses to restart the server automatically
+-- npm i -g nodemon -> it uses to restart the server automatically
 
 // it has routes order is mandtory.
 
@@ -14,3 +14,12 @@
 // rapping Route Handlers in Array is works properly.
 
 // in the use of next functions are middeleares and where the one is give the response is the request handlers.
+
+--database creation
+----npm i mongoose
+----we can create a database and connect to app in that also we applied before the server running that would easy.
+---next would be create userSchema
+---next is sent random user data to database.
+
+---create a post signup api.
+--- and next send a document.
