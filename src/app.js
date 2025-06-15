@@ -5,8 +5,11 @@ const app = express();
 
 
 
-app.get('/user',(req,res)=>{
+app.get('/user',(req,res,next)=>{
     res.send('user data get suceessusfully');
+    // next();
+},(req,res)=>{
+    res.send('user data2 get suceessusfully');
 })
 
 
