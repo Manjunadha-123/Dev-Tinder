@@ -23,3 +23,12 @@
 
 ---create a post signup api.
 --- and next send a document.
+
+---find a document using details.
+--- find all the docments.
+
+--- use curd operations.
+----/get, /post, /patch, /put, /delete
+
+----/put -> it is update fully document without mention attributes.
+----/patch -> it is only update the mentioned data only it is secured perfectly.
