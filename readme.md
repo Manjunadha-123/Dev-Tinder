@@ -1,5 +1,5 @@
 -- npm init
--- npm i express
+-- npm i express -- middeleware support and works route perfectly and intigrate with database.
 -- npm i -g nodemon -> it uses to restart the server automatically
 
 // it has routes order is mandtory.
@@ -32,3 +32,6 @@
 
 ----/put -> it is update fully document without mention attributes.
 ----/patch -> it is only update the mentioned data only it is secured perfectly.
+
+--next modify profecissional type user schema using schematypes.
+
