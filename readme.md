@@ -35,3 +35,15 @@
 
 --next modify profecissional type user schema using schematypes.
 
+--next create a login paage for users
+-- in that first you can check is user are present or not . if exists then check password otherwise show invalid credential.
+--if ok for all that then show login sucessfully.
+
+--next we can add athentication we can provie tokens for that we can install "npm i cookie-parser".
+-- it first user login browser provide us a token inside with a cookie the we got we can store our browser then every time we can request the database the will goes to database then return back the info. if user once logout the key token wiil be invalid if you use it can't work and it shows pleas login agian.
+--then we can create a profile upi.
+
+read  cookie we can  use c
+-- const cokkies = req.cookies;
+
+we can create jsonwebtoken we can use npm package called as npm i jsonwebtoken.
