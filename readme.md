@@ -47,3 +47,6 @@ read  cookie we can  use c
 -- const cokkies = req.cookies;
 
 we can create jsonwebtoken we can use npm package called as npm i jsonwebtoken.
+
+
+--After we can create routers using express router.
