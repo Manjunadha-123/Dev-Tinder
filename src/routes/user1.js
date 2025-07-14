@@ -1,6 +1,6 @@
 const express = require("express");
 const userRouter = express.Router();
-
+const User = require("../models/user");
 const { Auth } = require("../middlewares/auth1");
 const ConnectionRequest = require("../models/connectionRequest");
 
@@ -44,6 +44,42 @@ userRouter.get("/user/connections", Auth, async (req, res) => {
     });
   } catch (error) {
     res.status(400).send("Failed to fetch connections");
+  }
+});
+
+userRouter.post("/feed", Auth, async (req, res) => {
+  try{
+    // user should see all the user cards except
+    // 0. his own card
+    // 1. his connections
+    // 2. ignored people
+    // 3. already sent the connection request
+
+    const loggedInUser = req.user;
+
+    // find all connection requests (sent + received)
+    const connectionRequests = await ConnectionRequest.find({
+      $or: [{ fromUserId: loggedInUser._id }, { toUserId: loggedInUser._id }],
+    }).select("fromUserId toUserId");
+
+    const hideUsersFromFeed = new Set();
+    connectionRequests.forEach((request) => {
+      hideUsersFromFeed.add(request.fromUserId.toString());
+      hideUsersFromFeed.add(request.toUserId.toString());
+    });
+
+    // these are the user i want.
+    const users = await User.find({
+      $and:[
+        { _id: { $nin: Array.from(hideUsersFromFeed) } },
+        { _id: { $ne: loggedInUser._id }  },
+      ]
+    }).select(USER_SAFE_DATA);
+
+    res.send(users);
+  }
+  catch(err){
+    res.status(400).send("Failed to fetch feed");
   }
 });
 
