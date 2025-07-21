@@ -15,8 +15,15 @@ authRouter.post("/signup", async (req, res) => {
       emailID,
       password: passwordHash,
     });
-    await user.save();
-    res.send("User created successfully");
+    const savedUser = await user.save();
+    // create a JWT token
+    const token = await savedUser.getJWT();
+
+    //And the token to cookie and send to response back to th user
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+    res.json({ message: "User created successfully", data: savedUser });
   } catch (error) {
     res.status(400).send("Error creating user: " + error.message);
   }
@@ -28,7 +35,7 @@ authRouter.post("/login", async (req, res) => {
     const user = await User.findOne({ emailID: emailID });
 
     if (!user) {
-      throw new Error("Inavalid Crendentials!");
+      return res.status(401).send("Please Login!");
     }
     const isPassword = await user.validatePassword(password);
     if (isPassword) {
@@ -36,7 +43,9 @@ authRouter.post("/login", async (req, res) => {
       const token = await user.getJWT();
 
       //And the token to cookie and send to response back to th user
-      res.cookie("token", token,{expires:new Date(Date.now() + 8 * 3600000)});
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 8 * 3600000),
+      });
       res.send(user);
     } else {
       throw new Error("Inavalid Crendentials!");
@@ -47,12 +56,10 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.post("/logout", (req, res) => {
-    res.cookie("token",null,{
-        expires: new Date(Date.now())
-    });
-    res.send("Logged Out Successfully!");
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+  });
+  res.send("Logged Out Successfully!");
 });
-
-
 
 module.exports = authRouter;
